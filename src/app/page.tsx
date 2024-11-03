@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Plus } from "lucide-react";
 import { DUMMY_RECIPES } from "@lib/data/recipe";
-import { RecipeCarousel } from "@/component/carousel";
+import { RecipeCarousel } from "@components/carousel";
 
 export default function Home() {
   return (
