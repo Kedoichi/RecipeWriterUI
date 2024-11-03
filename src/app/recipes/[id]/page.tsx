@@ -2,15 +2,36 @@ import Link from 'next/link';
 import { ArrowLeft, Edit} from 'lucide-react';
 import { DUMMY_RECIPES } from '@/lib/data/recipe';
 
-const getRecipe = (id: string) => {
-  return DUMMY_RECIPES.find(recipe => recipe.id === id);
-};
+interface PageProps {
+  params: Promise<{
+    id: string;
+  }>;
+}
 
-export default function RecipePage({ params }: { params: { id: string } }) {
-  const recipe = getRecipe(params.id);
+// Get recipe by ID from dummy data
+async function getRecipe(id: string) {
+  return DUMMY_RECIPES.find(recipe => recipe.id === id);
+}
+
+export default async function RecipePage({ params }: PageProps) {
+  const { id } = await params;
+  const recipe = await getRecipe(id);
 
   if (!recipe) {
-    return <div>Recipe not found</div>;
+    return (
+      <div className="container mx-auto p-6">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-2xl font-bold text-red-500">Recipe not found</h1>
+          <Link 
+            href="/"
+            className="mt-4 inline-flex items-center gap-2 text-gray-600 hover:text-gray-900"
+          >
+            <ArrowLeft size={20} />
+            Back to Recipes
+          </Link>
+        </div>
+      </div>
+    );
   }
 
   return (

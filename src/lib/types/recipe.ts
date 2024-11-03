@@ -1,6 +1,4 @@
 export type Recipe = {
-    servings: number;
-    cookingTime: number;
     id: string;
     title: string;
     description: string;
